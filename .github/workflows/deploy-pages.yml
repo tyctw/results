@@ -32,6 +32,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VITE_SUPABASE_URL: https://dshylhiirwsihuzfihvp.supabase.co
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzaHlsaGlpcndzaWh1emZpaHZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5MTg4NjUsImV4cCI6MjA5ODQ5NDg2NX0.5E-fGI9_zkdLATgVy_Now07rmrjTnjr4Yj3Ggw_03fA' }}
 
       - name: Add SPA fallback
         run: cp dist/index.html dist/404.html
