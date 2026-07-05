@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Loader2, AlertTriangle, ExternalLink, X } from 'lucide-react';
 import { supabase, AdmissionRecord } from '../lib/supabase';
 import { Link } from 'react-router-dom';
+import { NATIONAL_SCHOOLS } from '../lib/nationalSchools';
 
 export default function QueryPage() {
   const [query, setQuery] = useState('');
@@ -51,10 +52,30 @@ export default function QueryPage() {
       setCurrentAcademicYear(year);
       
       try {
-        const response = await fetch(`/api/stats/completion-rate?year=${year}`);
-        const data = await response.json();
-        if (data.rate !== undefined) {
-          setCompletionRate(data.rate);
+        const collectedSchools = new Set<string>();
+        let page = 0;
+        const pageSize = 1000;
+
+        while (true) {
+          const { data, error } = await supabase
+            .from('admissions')
+            .select('school_name')
+            .eq('year', String(year))
+            .range(page * pageSize, (page + 1) * pageSize - 1);
+
+          if (error) throw error;
+          if (!data || data.length === 0) break;
+
+          data.forEach((record) => {
+            if (record.school_name) collectedSchools.add(record.school_name);
+          });
+
+          if (data.length < pageSize) break;
+          page += 1;
+        }
+
+        if (NATIONAL_SCHOOLS.length > 0) {
+          setCompletionRate((collectedSchools.size / NATIONAL_SCHOOLS.length) * 100);
         }
       } catch (err) {
         console.error('Failed to fetch completion rate', err);
