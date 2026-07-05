@@ -28,7 +28,7 @@ var import_vite = require("vite");
 var import_supabase_js = require("@supabase/supabase-js");
 async function startServer() {
   const app = (0, import_express.default)();
-  const PORT = 3e3;
+  const PORT = Number(process.env.PORT || 3e3);
   app.use(import_express.default.json({ limit: "50mb" }));
   const supabaseUrl = process.env.VITE_SUPABASE_URL || "";
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY || "";
