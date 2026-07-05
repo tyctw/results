@@ -7,8 +7,16 @@ export default function AdminLogin({ onLogin }: { onLogin: () => void }) {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+    const isStaticPagesDeploy = window.location.hostname.endsWith('github.io') && !apiBaseUrl;
+
+    if (isStaticPagesDeploy) {
+      setError('GitHub Pages 靜態網站不支援管理後端，請改用本機或後端部署環境登入。');
+      return;
+    }
+
     try {
-      const response = await fetch('/api/admin/login', {
+      const response = await fetch(`${apiBaseUrl}/api/admin/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

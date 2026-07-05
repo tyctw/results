@@ -1,0 +1,11 @@
+{
+  "name": "全國會考榜單查詢",
+  "short_name": "會考查榜",
+  "description": "115學年度高中職免試入學榜單查詢",
+  "start_url": "/results/",
+  "scope": "/results/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#fbbf24",
+  "lang": "zh-Hant-TW"
+}
