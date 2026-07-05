@@ -1,0 +1,22 @@
+name: Keep Supabase Active
+
+on:
+  schedule:
+    # 每 6 小時執行一次
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Supabase
+        run: |
+          curl --fail --silent --show-error \
+            -H "apikey: ${{ secrets.VITE_SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.VITE_SUPABASE_ANON_KEY }}" \
+            "${{ secrets.VITE_SUPABASE_URL }}/rest/v1/admissions?select=id&limit=1"
+
+      - name: Done
+        run: echo "Supabase is active."
