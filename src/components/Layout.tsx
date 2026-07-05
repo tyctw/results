@@ -28,12 +28,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-dot-pattern text-slate-900 font-sans flex flex-col selection:bg-blue-200 selection:text-slate-900 relative overflow-hidden">
       <header className="bg-amber-400 border-b-4 border-slate-900 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link to="/" onClick={(e) => handleLinkClick(e)} className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <a href="/results/" onClick={(e) => handleLinkClick(e)} className="flex items-center gap-2 sm:gap-3 shrink-0">
             <div className="w-8 h-8 sm:w-10 sm:h-10 bg-slate-900 flex items-center justify-center -skew-x-6 shrink-0">
               <span className="text-white font-black text-sm sm:text-lg skew-x-6 tracking-tighter">115</span>
             </div>
             <span className="text-base sm:text-xl font-black tracking-tight text-slate-900 truncate">會考姓名查榜</span>
-          </Link>
+          </a>
           <nav className="flex items-center gap-3">
             <button 
               onClick={() => setIsShareOpen(true)}
